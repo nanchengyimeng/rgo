@@ -2,13 +2,13 @@ package dbx
 
 import (
 	"database/sql"
+	"github.com/nanchengyimeng/rgo/dbx/mysqlx"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"io"
 	"log"
 	"os"
-	"rgo/dbx/mysqlx"
 	"time"
 )
 
