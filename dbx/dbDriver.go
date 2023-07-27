@@ -2,7 +2,6 @@ package dbx
 
 import (
 	"database/sql"
-	"fmt"
 	"github.com/nanchengyimeng/rgo/dbx/mysqlx"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -49,7 +48,7 @@ func (d *Driver) ConnectMysql(conf mysqlx.Config, gormConfigs ...*gorm.Config) {
 		panic(err)
 	}
 
-	fmt.Println("mysql服务启动成功")
+	log.Println("mysql服务启动成功")
 
 	d.db = db
 	d.sqlDb, _ = db.DB()
