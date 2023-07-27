@@ -2,6 +2,7 @@ package web
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/rs/xid"
 )
 
 type Web struct {
@@ -64,15 +65,25 @@ func (w *Web) Router(handler func(engine *gin.Engine)) {
 	handler(w.engine)
 }
 
+func (w *Web) Uniqid() {
+	w.engine.Use(func(ctx *gin.Context) {
+		if _, ok := ctx.Get("uniqId"); !ok {
+			id := xid.New()
+			ctx.Set("uniqId", id.String())
+		}
+	})
+}
+
 // Start
 // @Description: 服务启动
 // @receiver w
 func (w *Web) Start() {
 	w.engine.Use(gin.Recovery())
 
+	w.Uniqid()
+
 	if len(w.config.Port) == 0 {
 		panic("lost port of web in config")
 	}
 	w.engine.Run(":" + w.config.Port)
-
 }
