@@ -2,6 +2,7 @@ package dbx
 
 import (
 	"database/sql"
+	"fmt"
 	"github.com/nanchengyimeng/rgo/dbx/mysqlx"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -39,10 +40,16 @@ func (d *Driver) ConnectMysql(conf mysqlx.Config, gormConfigs ...*gorm.Config) {
 	//加载日志配置
 	d.logger(&gormConfig)
 
+	if len(d.config.Dsn) == 0 {
+		panic("dsn config list in mysql")
+	}
+
 	db, err := gorm.Open(mysql.Open(d.config.Dsn), &gormConfig)
 	if err != nil {
 		panic(err)
 	}
+
+	fmt.Println("mysql服务启动成功")
 
 	d.db = db
 	d.sqlDb, _ = db.DB()

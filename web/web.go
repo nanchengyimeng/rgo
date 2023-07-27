@@ -85,5 +85,9 @@ func (w *Web) Start() {
 	if len(w.config.Port) == 0 {
 		panic("lost port of web in config")
 	}
-	w.engine.Run(":" + w.config.Port)
+	err := w.engine.Run(":" + w.config.Port)
+	if err != nil {
+		panic(err)
+		return
+	}
 }
