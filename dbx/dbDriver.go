@@ -40,7 +40,7 @@ func (d *Driver) ConnectMysql(conf mysqlx.Config, gormConfigs ...*gorm.Config) {
 	d.logger(&gormConfig)
 
 	if len(d.config.Dsn) == 0 {
-		panic("dsn config list in mysql")
+		panic("dsn config lost in mysql")
 	}
 
 	db, err := gorm.Open(mysql.Open(d.config.Dsn), &gormConfig)
